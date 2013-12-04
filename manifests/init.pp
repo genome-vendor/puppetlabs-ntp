@@ -2,6 +2,7 @@ class ntp (
   $autoupdate        = $ntp::params::autoupdate,
   $config            = $ntp::params::config,
   $config_template   = $ntp::params::config_template,
+  $fudge             = $ntp::params::fudge,
   $driftfile         = $ntp::params::driftfile,
   $keys_enable       = $ntp::params::keys_enable,
   $keys_file         = $ntp::params::keys_file,
@@ -34,6 +35,7 @@ class ntp (
   validate_array($preferred_servers)
   validate_array($restrict)
   validate_array($servers)
+  validate_array($fudge)
   validate_bool($service_enable)
   validate_string($service_ensure)
   validate_bool($service_manage)
