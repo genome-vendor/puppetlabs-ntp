@@ -3,7 +3,10 @@ class ntp (
   $config            = $ntp::params::config,
   $config_template   = $ntp::params::config_template,
   $fudge             = $ntp::params::fudge,
+  $disable_monitor   = $ntp::params::disable_monitor,
   $driftfile         = $ntp::params::driftfile,
+  $logfile           = $ntp::params::logfile,
+  $iburst_enable     = $ntp::params::iburst_enable,
   $keys_enable       = $ntp::params::keys_enable,
   $keys_file         = $ntp::params::keys_file,
   $keys_controlkey   = $ntp::params::keys_controlkey,
@@ -14,6 +17,7 @@ class ntp (
   $panic             = $ntp::params::panic,
   $preferred_servers = $ntp::params::preferred_servers,
   $restrict          = $ntp::params::restrict,
+  $interfaces        = $ntp::params::interfaces,
   $servers           = $ntp::params::servers,
   $service_enable    = $ntp::params::service_enable,
   $service_ensure    = $ntp::params::service_ensure,
@@ -24,7 +28,10 @@ class ntp (
 
   validate_absolute_path($config)
   validate_string($config_template)
+  validate_bool($disable_monitor)
   validate_absolute_path($driftfile)
+  if $logfile { validate_absolute_path($logfile) }
+  validate_bool($iburst_enable)
   validate_bool($keys_enable)
   validate_re($keys_controlkey, ['^\d+$', ''])
   validate_re($keys_requestkey, ['^\d+$', ''])
@@ -34,6 +41,7 @@ class ntp (
   validate_bool($panic)
   validate_array($preferred_servers)
   validate_array($restrict)
+  validate_array($interfaces)
   validate_array($servers)
   validate_array($fudge)
   validate_bool($service_enable)
